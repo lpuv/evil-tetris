@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dl7sfrc8jk2ck"]
+
+[ext_resource type="Texture2D" uid="uid://fncmq8wi5af7" path="res://assets/Tetromino_I1_1.png" id="1_1vmch"]
+[ext_resource type="Script" uid="uid://bxjdlt4gs2gtv" path="res://blocks/spin.gd" id="1_m1um4"]
+[ext_resource type="Texture2D" uid="uid://b6ykcldt18f1" path="res://assets/Tetromino_I1_2.png" id="2_rt5j4"]
+
+[node name="I" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("sprite", "shape")]
+gravity_scale = 0.0
+script = ExtResource("1_m1um4")
+sprite = NodePath("Sprite2D")
+shape = NodePath("CollisionPolygon2D")
+textures = Array[CompressedTexture2D]([ExtResource("1_1vmch"), ExtResource("2_rt5j4")])
+shape_id = "I"
+shapes = Array[PackedVector2Array]([PackedVector2Array(-60, -15, 60, -15, 60, 15, -60, 15), PackedVector2Array(15, -60, 15, -60, 15, 60, -15, 60)])
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("2_rt5j4")
+metadata/state = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+polygon = PackedVector2Array(-15, -60, 15, -60, 15, 60, -15, 60)
