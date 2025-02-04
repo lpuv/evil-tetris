@@ -19,22 +19,18 @@ func _process(delta: float) -> void:
 		if (sprite.get_meta("state") == (len(textures) - 1)):
 			sprite.texture = textures[0]
 			shape.polygon = shapes.get(0)
-			#shape.shape.size = Vector2(Shared.shapes[shape_id][0][0], Shared.shapes[shape_id][0][1])
 			sprite.set_meta("state", 0)
 		else:
 			sprite.texture = textures[sprite.get_meta("state") + 1]
 			shape.polygon = shapes.get(sprite.get_meta("state") + 1)
-			#shape.shape.size = Vector2(Shared.shapes[shape_id][sprite.get_meta("state") + 1][0], Shared.shapes[shape_id][sprite.get_meta("state") + 1][1])
 			sprite.set_meta("state", sprite.get_meta("state") + 1)
 	
 	if Input.is_action_just_pressed("right"):
 		if (sprite.get_meta("state") == 0):
 			sprite.texture = textures[len(textures) - 1]
 			shape.polygon = shapes.get(len(textures) - 1)
-			#shape.shape.size = Vector2(Shared.shapes[shape_id][len(textures) - 1][0], Shared.shapes[shape_id][len(textures) - 1][1])
 			sprite.set_meta("state", len(textures) - 1)
 		else:
 			sprite.texture = textures[sprite.get_meta("state") - 1]
 			shape.polygon = shapes.get(sprite.get_meta("state") - 1)
-			#shape.shape.size = Vector2(Shared.shapes[shape_id][sprite.get_meta("state") - 1][0], Shared.shapes[shape_id][sprite.get_meta("state") - 1][1])
 			sprite.set_meta("state", sprite.get_meta("state") - 1)
