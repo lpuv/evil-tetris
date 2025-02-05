@@ -1,8 +1,6 @@
 extends Node
 
-var shapes = {
-	"I": {
-		0: [120, 30],
-		1: [30, 120]
-	},
-}
+var CELL_SIZE = 50 # or whatever
+
+func position_snapped(pos: Vector2):
+	return (pos / CELL_SIZE).floor() * CELL_SIZE
