@@ -8,7 +8,12 @@ var rng
 
 var current_piece = null
 
+
+func prepare_restart():
+	current_piece.queue_free()
+
 func spawn_piece():
+	
 	var type_to_spawn = rng.randi_range(0, NUM_PIECES - 1)
 	print("spawning piece #" + str(type_to_spawn))
 	print("spawning piece " + str(pieces[type_to_spawn]))
@@ -17,7 +22,7 @@ func spawn_piece():
 	var body = piece.get_node("RigidBody2D")
 	body.is_controllable = true
 	body.transform.origin.y = -393
-	body.visible = false
+	#body.visible = false
 	body.gravity_scale = 1
 	body.contact_monitor = true
 	body.max_contacts_reported = 5
@@ -25,6 +30,7 @@ func spawn_piece():
 	current_piece = piece
 
 func _ready():
+	
 	
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
