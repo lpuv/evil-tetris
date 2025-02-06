@@ -159,8 +159,8 @@ grow_vertical = 2
 texture = ExtResource("1_yxuok")
 
 [node name="floor" type="StaticBody2D" parent="."]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor"]
 position = Vector2(-3, 384.1)
@@ -187,6 +187,8 @@ position = Vector2(208, 8)
 shape = SubResource("RectangleShape2D_jyhfs")
 
 [node name="ceiling" type="Area2D" parent="."]
+collision_layer = 5
+collision_mask = 5
 script = ExtResource("5_tbgi4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ceiling"]
@@ -194,8 +196,8 @@ position = Vector2(3, -380)
 shape = SubResource("RectangleShape2D_tbgi4")
 
 [node name="deathplane" type="Area2D" parent="."]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("6_tefeu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="deathplane"]

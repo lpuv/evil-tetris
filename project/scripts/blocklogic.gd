@@ -13,12 +13,12 @@ func set_state(state: int) -> void:
 	sprite.texture = textures[state]
 	shape.polygon = shapes[state]
 	sprite.set_meta("state", state)
+	
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	# randomize starting state
 	var state = randi_range(0, (len(textures) - 1))
-	print("state: " + str(state))
 	set_state(state)
 	self.body_entered.connect(_on_body_enter)
 	
@@ -55,6 +55,7 @@ func _process(delta: float) -> void:
 	# process left and right inputs and rotate accordingly
 	if is_controllable:
 		process_inputs()
+		
 	
 
 func _on_body_enter(node):
@@ -63,6 +64,8 @@ func _on_body_enter(node):
 	elif node.name != "walls" and node.name != "deathplane" and is_controllable:
 		#transform.origin = Shared.position_snapped(transform.origin)
 		is_controllable = false
-		collision_layer = 2
-		collision_mask = 2
+		set_collision_layer_value(2, true)
+		set_collision_layer_value(1, false)
+		set_collision_mask_value(2, true)
+		set_collision_mask_value(1, false)
 		gravity_scale = 1
