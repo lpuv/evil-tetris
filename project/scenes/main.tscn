@@ -1,11 +1,11 @@
 [gd_scene load_steps=12 format=3 uid="uid://q6cxglh3ahep"]
 
 [ext_resource type="Texture2D" uid="uid://l5v3kbwcpe1l" path="res://assets/Border.png" id="1_8xilh"]
-[ext_resource type="Script" uid="uid://bvikokjh5h31t" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://wka32lq2a6hj" path="res://assets/Background.png" id="1_yxuok"]
 [ext_resource type="Texture2D" uid="uid://ko48t4t62axo" path="res://assets/Pattern03.png" id="4_jyhfs"]
-[ext_resource type="Script" uid="uid://b0rrefbliuoks" path="res://scripts/ceiling.gd" id="5_tbgi4"]
-[ext_resource type="Script" uid="uid://dm3v7karmehly" path="res://scripts/deathplane.gd" id="6_tefeu"]
+[ext_resource type="Script" path="res://scripts/ceiling.gd" id="5_tbgi4"]
+[ext_resource type="Script" path="res://scripts/deathplane.gd" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dhs7kwdbbejk4" path="res://scenes/pause_menu.tscn" id="7_o6xl0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]

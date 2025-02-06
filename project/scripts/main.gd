@@ -14,15 +14,12 @@ func prepare_restart():
 
 func spawn_piece():
 	
-	var type_to_spawn = rng.randi_range(0, NUM_PIECES - 1)
-	print("spawning piece #" + str(type_to_spawn))
-	print("spawning piece " + str(pieces[type_to_spawn]))
-	var piece = pieces[type_to_spawn].instantiate()
+	var piece = pieces[randi() % pieces.size()].instantiate()
 	add_child(piece)
 	var body = piece.get_node("RigidBody2D")
 	body.is_controllable = true
 	body.transform.origin.y = -393
-	#body.visible = false
+	body.visible = false
 	body.gravity_scale = 1
 	body.contact_monitor = true
 	body.max_contacts_reported = 5
