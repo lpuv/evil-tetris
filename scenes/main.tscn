@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://q6cxglh3ahep"]
+[gd_scene load_steps=11 format=3 uid="uid://q6cxglh3ahep"]
 
 [ext_resource type="Texture2D" uid="uid://l5v3kbwcpe1l" path="res://assets/Border.png" id="1_8xilh"]
 [ext_resource type="Script" uid="uid://bvikokjh5h31t" path="res://scripts/main.gd" id="1_sugp2"]
 [ext_resource type="Texture2D" uid="uid://wka32lq2a6hj" path="res://assets/Background.png" id="1_yxuok"]
 [ext_resource type="Texture2D" uid="uid://ko48t4t62axo" path="res://assets/Pattern03.png" id="4_jyhfs"]
 [ext_resource type="Script" uid="uid://b0rrefbliuoks" path="res://scripts/ceiling.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://dm3v7karmehly" path="res://scripts/deathplane.gd" id="6_tefeu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(1290, 88.9999)
@@ -14,6 +15,9 @@ size = Vector2(20, 756)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
 size = Vector2(428, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
+size = Vector2(1049, 20)
 
 [node name="main" type="Node"]
 script = ExtResource("1_sugp2")
@@ -79,4 +83,14 @@ script = ExtResource("5_tbgi4")
 position = Vector2(3, -380)
 shape = SubResource("RectangleShape2D_tbgi4")
 
+[node name="deathplane" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("6_tefeu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="deathplane"]
+position = Vector2(15.5, 452)
+shape = SubResource("RectangleShape2D_tefeu")
+
 [connection signal="body_exited" from="ceiling" to="ceiling" method="_on_body_exited"]
+[connection signal="body_entered" from="deathplane" to="deathplane" method="_on_body_entered"]

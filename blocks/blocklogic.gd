@@ -36,11 +36,18 @@ func process_inputs():
 		else:
 			set_state(sprite.get_meta("state") - 1)
 			
-			
-	if Input.is_action_just_pressed("left"):
+		
+	if Input.is_action_just_pressed("small_left"):
+		move_and_collide(Vector2(-10, 0))		
+	elif Input.is_action_just_pressed("small_right"):
+		move_and_collide(Vector2(10, 0))
+	elif Input.is_action_just_pressed("left"):
 		move_and_collide(Vector2(-25, 0))
 	elif Input.is_action_just_pressed("right"):
 		move_and_collide(Vector2(25, 0))
+	
+	if Input.is_action_just_pressed("space"):
+		apply_force(Vector2(0, 100000))
 		
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,7 +60,7 @@ func _process(delta: float) -> void:
 func _on_body_enter(node):
 	if node.name == "ceiling":
 		visible = true
-	elif node.name != "walls" and is_controllable:
+	elif node.name != "walls" and node.name != "deathplane" and is_controllable:
 		#transform.origin = Shared.position_snapped(transform.origin)
 		is_controllable = false
 		collision_layer = 2

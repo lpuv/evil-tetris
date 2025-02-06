@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://c2k34dkur64h3"]
+
+[ext_resource type="Script" uid="uid://bxjdlt4gs2gtv" path="res://blocks/blocklogic.gd" id="1_kcy48"]
+[ext_resource type="Texture2D" uid="uid://rl21bsoa1adr" path="res://assets/Tetromino_T1_1.png" id="2_7hs1i"]
+[ext_resource type="Texture2D" uid="uid://c0w3a415cqarf" path="res://assets/Tetromino_T1_2.png" id="3_a66lt"]
+[ext_resource type="Texture2D" uid="uid://lq3aonkh4vr7" path="res://assets/Tetromino_T1_3.png" id="4_vbai5"]
+[ext_resource type="Texture2D" uid="uid://va63orwee1of" path="res://assets/Tetromino_T1_4.png" id="5_jdinq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a66lt"]
+friction = 0.5
+
+[node name="T" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("sprite", "shape")]
+position = Vector2(-2, 0)
+collision_layer = 3
+collision_mask = 3
+physics_material_override = SubResource("PhysicsMaterial_a66lt")
+center_of_mass_mode = 1
+center_of_mass = Vector2(-5, 26)
+continuous_cd = 1
+script = ExtResource("1_kcy48")
+sprite = NodePath("Sprite2D")
+shape = NodePath("CollisionPolygon2D")
+textures = Array[CompressedTexture2D]([ExtResource("2_7hs1i"), ExtResource("3_a66lt"), ExtResource("4_vbai5"), ExtResource("5_jdinq")])
+shapes = Array[PackedVector2Array]([PackedVector2Array(-30, -15, 0, -15, 0, -45, 30, -45, 30, 45, 0, 45, 0, 15, -30, 15), PackedVector2Array(-30, -15, 0, -15, 0, 15, 30, 15, 30, 45, -60, 45, -60, 15, -30, 15), PackedVector2Array(-15, 0, 15, 0, 15, 30, -15, 30, -15, 60, -45, 60, -45, -30, -15, -30), PackedVector2Array(30, 15, 0, 15, 0, 45, -30, 45, -30, 15, -60, 15, -60, -15, 30, -15)])
+metadata/state = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = ExtResource("5_jdinq")
+metadata/state = 0
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+position = Vector2(15, -15)
+polygon = PackedVector2Array(30, 15, 0, 15, 0, 45, -30, 45, -30, 15, -60, 15, -60, -15, 30, -15)
