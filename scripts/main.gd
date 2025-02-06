@@ -27,8 +27,7 @@ func spawn_piece():
 func _ready():
 	
 	rng = RandomNumberGenerator.new()
-	randomize()
-	rng.seed = Time.get_ticks_msec()
+	rng.randomize()
 	
 	var I = preload("res://blocks/I.tscn")
 	var J = preload("res://blocks/J.tscn")
