@@ -26,4 +26,5 @@ texture = ExtResource("2_rt5j4")
 metadata/state = 0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
-polygon = PackedVector2Array(-16, -61, 16, -61, 16, 61, -16, 61)
+build_mode = 1
+polygon = PackedVector2Array(-15, -60, 15, -60, 15, 60, -15, 60)

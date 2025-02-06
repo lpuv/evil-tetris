@@ -8,6 +8,8 @@ var rng
 
 var current_piece = null
 
+var did_win = false
+
 
 func prepare_restart():
 	current_piece.queue_free()
@@ -53,11 +55,18 @@ func _process(_delta: float) -> void:
 	#print(str(current_piece.name))
 	if current_piece.get_meta("to_delete"):
 		current_piece.queue_free()
-	elif current_piece.get_node("RigidBody2D").is_controllable:
+	elif current_piece.get_node("RigidBody2D").is_controllable or did_win:
 		return
 	print("time to spawn")
 	spawn_piece()
 	
+	if len(get_children()) > 50:
+		win()
+	
+
+func win():
+	$win.visible = true
+	did_win = true
 
 func chaos():
 	pass

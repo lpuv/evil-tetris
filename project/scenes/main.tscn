@@ -238,6 +238,16 @@ wait_time = 20.0
 
 [node name="OneSecTimer" type="Timer" parent="."]
 
+[node name="win" type="Label" parent="."]
+visible = false
+offset_left = -108.0
+offset_top = -276.0
+offset_right = 140.0
+offset_bottom = -217.0
+theme_override_fonts/font = ExtResource("8_wxjoi")
+theme_override_font_sizes/font_size = 50
+text = "YOU WIN!!"
+
 [connection signal="body_exited" from="ceiling" to="ceiling" method="_on_body_exited"]
 [connection signal="body_entered" from="deathplane" to="deathplane" method="_on_body_entered"]
 [connection signal="timeout" from="TwentySecTimer" to="." method="_on_twenty_sec_timer_timeout"]
