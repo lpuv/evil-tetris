@@ -28,6 +28,7 @@ func spawn_piece():
 
 func _ready():
 	
+	$AnimationPlayer.play("RESET")
 	
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
@@ -43,6 +44,10 @@ func _ready():
 	pieces = [I, J, L, O, S, T, Z]
 	pieces.shuffle()
 	spawn_piece()
+	
+	$AnimationPlayer.play("controls_fade")
+	$TwentySecTimer.start()
+	$OneSecTimer.start()
 
 func _process(_delta: float) -> void:
 	#print(str(current_piece.name))
@@ -53,3 +58,19 @@ func _process(_delta: float) -> void:
 	print("time to spawn")
 	spawn_piece()
 	
+
+func chaos():
+	pass
+
+
+func _on_twenty_sec_timer_timeout() -> void:
+	chaos()
+	$event_label.text = "Next Event: 20s"
+	$event_label.set_meta("time_left", 20)
+	$TwentySecTimer.start()
+
+func _on_one_sec_timer_timeout() -> void:
+	$event_label.text = "Next Event: " + str($event_label.get_meta("time_left")) + "s"
+	$event_label.set_meta("time_left", $event_label.get_meta("time_left") - 1)
+	if $event_label.get_meta("time_left") > 0:
+		$OneSecTimer.start()

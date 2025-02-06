@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://q6cxglh3ahep"]
+[gd_scene load_steps=16 format=3 uid="uid://q6cxglh3ahep"]
 
 [ext_resource type="Texture2D" uid="uid://l5v3kbwcpe1l" path="res://assets/Border.png" id="1_8xilh"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_sugp2"]
@@ -7,6 +7,108 @@
 [ext_resource type="Script" path="res://scripts/ceiling.gd" id="5_tbgi4"]
 [ext_resource type="Script" path="res://scripts/deathplane.gd" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dhs7kwdbbejk4" path="res://scenes/pause_menu.tscn" id="7_o6xl0"]
+[ext_resource type="FontFile" uid="uid://eh43j86udm7i" path="res://Qilkabold-DO6BR.otf" id="8_wxjoi"]
+
+[sub_resource type="Animation" id="Animation_a0mu7"]
+resource_name = "controls_fade"
+length = 5.0
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(3.1, 5)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(3.1, 5)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(3.13333, 5)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(3.13333, 5)
+}
+
+[sub_resource type="Animation" id="Animation_37q4v"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gljjf"]
+_data = {
+"RESET": SubResource("Animation_37q4v"),
+"controls_fade": SubResource("Animation_a0mu7")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(1290, 88.9999)
@@ -22,6 +124,13 @@ size = Vector2(1049, 20)
 
 [node name="main" type="Node"]
 script = ExtResource("1_sugp2")
+metadata/_edit_vertical_guides_ = [792.0]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../controls")
+libraries = {
+"": SubResource("AnimationLibrary_gljjf")
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.5, 0.5)
@@ -99,5 +208,37 @@ shape = SubResource("RectangleShape2D_tefeu")
 offset_top = -1.0
 offset_bottom = -1.0
 
+[node name="controls" type="Label" parent="."]
+offset_left = -99.0
+offset_top = -524.0
+offset_right = 114.0
+offset_bottom = -423.0
+theme_override_fonts/font = ExtResource("8_wxjoi")
+text = "Controls:
+arrow keys: move & rotate
+shift key: precise movement
+space: slam down
+esc: pause"
+
+[node name="event_label" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -143.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "Next Event: 20s"
+metadata/time_left = 20
+
+[node name="TwentySecTimer" type="Timer" parent="."]
+wait_time = 20.0
+
+[node name="OneSecTimer" type="Timer" parent="."]
+
 [connection signal="body_exited" from="ceiling" to="ceiling" method="_on_body_exited"]
 [connection signal="body_entered" from="deathplane" to="deathplane" method="_on_body_entered"]
+[connection signal="timeout" from="TwentySecTimer" to="." method="_on_twenty_sec_timer_timeout"]
+[connection signal="timeout" from="OneSecTimer" to="." method="_on_one_sec_timer_timeout"]
