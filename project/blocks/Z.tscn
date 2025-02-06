@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cflwxi0hpd4qw"]
 
-[ext_resource type="Script" uid="uid://bxjdlt4gs2gtv" path="res://blocks/blocklogic.gd" id="1_to42e"]
+[ext_resource type="Script" path="res://blocks/blocklogic.gd" id="1_to42e"]
 [ext_resource type="Texture2D" uid="uid://cay1cf1ciax0y" path="res://assets/Tetromino_Z1_1.png" id="2_jgp4k"]
 [ext_resource type="Texture2D" uid="uid://dpafqr6dg0s4q" path="res://assets/Tetromino_Z1_2.png" id="3_4c5xo"]
 

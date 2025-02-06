@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhs7kwdbbejk4"]
 
-[ext_resource type="Shader" uid="uid://chr1bl2s7dtoy" path="res://assets/pause_menu.gdshader" id="1_dplge"]
+[ext_resource type="Shader" path="res://assets/pause_menu.gdshader" id="1_dplge"]
 [ext_resource type="Script" uid="uid://dndp1wn71fhqu" path="res://scripts/pause_menu.gd" id="1_q2323"]
 [ext_resource type="FontFile" uid="uid://eh43j86udm7i" path="res://Qilkabold-DO6BR.otf" id="3_kukqi"]
 
@@ -127,8 +127,8 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kmreq"]
 _data = {
-&"RESET": SubResource("Animation_c8sml"),
-&"blur": SubResource("Animation_hmsig")
+"RESET": SubResource("Animation_c8sml"),
+"blur": SubResource("Animation_hmsig")
 }
 
 [node name="PauseMenu" type="Control"]
@@ -183,7 +183,7 @@ text = "Quit"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-&"": SubResource("AnimationLibrary_kmreq")
+"": SubResource("AnimationLibrary_kmreq")
 }
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]

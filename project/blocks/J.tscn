@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://h4pemg71ky3t"]
 
 [ext_resource type="Texture2D" uid="uid://dy86k1tl0u1yu" path="res://assets/Tetromino_J1_1.png" id="1_ukcq3"]
-[ext_resource type="Script" uid="uid://bxjdlt4gs2gtv" path="res://blocks/blocklogic.gd" id="1_y7625"]
+[ext_resource type="Script" path="res://blocks/blocklogic.gd" id="1_y7625"]
 [ext_resource type="Texture2D" uid="uid://dmae68cwei3ic" path="res://assets/Tetromino_J1_2.png" id="3_yil5p"]
 [ext_resource type="Texture2D" uid="uid://d3fe0r3sqi3is" path="res://assets/Tetromino_J1_3.png" id="4_pnrdj"]
 [ext_resource type="Texture2D" uid="uid://b8u4qjet3200r" path="res://assets/Tetromino_J1_4.png" id="5_hihuo"]

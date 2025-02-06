@@ -11,7 +11,7 @@ extends RigidBody2D
 
 func set_state(state: int) -> void:
 	sprite.texture = textures[state]
-	shape.polygon = shapes.get(state)
+	shape.polygon = shapes[state]
 	sprite.set_meta("state", state)
 
 # Called when the node enters the scene tree for the first time.
