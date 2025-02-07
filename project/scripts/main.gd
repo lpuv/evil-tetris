@@ -97,8 +97,6 @@ func _process(_delta: float) -> void:
 	
 	print(get_visible_children_count())
 	
-	if get_visible_children_count() > 300:
-		win()
 	
 
 func win():

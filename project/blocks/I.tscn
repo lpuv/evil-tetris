@@ -9,7 +9,6 @@
 [node name="RigidBody2D" type="RigidBody2D" parent="." node_paths=PackedStringArray("sprite", "shape")]
 collision_layer = 3
 collision_mask = 3
-center_of_mass_mode = 1
 continuous_cd = 2
 script = ExtResource("1_m1um4")
 sprite = NodePath("Sprite2D")

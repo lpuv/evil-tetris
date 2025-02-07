@@ -68,10 +68,13 @@ func _on_body_enter(node):
 		visible = true
 	elif node.name != "walls" and node.name != "deathplane" and is_controllable:
 		is_controllable = false
-		set_collision_layer_value(2, true)
-		set_collision_layer_value(1, false)
+		set_collision_layer_value(2, true)  # other pieces
+		set_collision_layer_value(1, false) # walls
 		set_collision_mask_value(2, true)
 		set_collision_mask_value(1, false)
-		set_collision_layer_value(4, true)
+		set_collision_layer_value(4, true) # floaty & flying pieces
 		set_collision_mask_value(4, true)
+		set_collision_layer_value(5, true) # win check
+		set_collision_mask_value(5, true)
+		set_meta("is_landed", true) # win check
 		gravity_scale = 1
