@@ -14,6 +14,8 @@ var did_win = false
 var is_not_colliding = false
 var bouncyMaterial = PhysicsMaterial.new()
 var is_rotating_chaos = false
+var is_random_gravity = false
+var is_fast_gravity = false
 
 
 func get_visible_children_count() -> int:
@@ -100,6 +102,10 @@ func _process(_delta: float) -> void:
 func win():
 	$win.visible = true
 	did_win = true
+	var pieces = Shared.get_children_in_radius(10, $win)
+	for piece in pieces:
+		piece.visible = false
+		piece.queue_free()
 
 func chaos():
 	var chaos_events = Shared.CHAOS_EVENTS
@@ -111,16 +117,36 @@ func chaos():
 	if event == "nocollision":
 		is_not_colliding = true
 	elif event == "upwardforce":
-		current_piece.get_node("RigidBody2D").apply_force(Vector2(0, -10000))
+		current_piece.get_node("RigidBody2D").apply_force(Vector2(0, -5000))
 		current_piece.get_node("RigidBody2D").is_controllable = false
 	elif event == "bouncy":
 		current_piece.get_node("RigidBody2D").physics_material_override = bouncyMaterial
-	elif event == "rotatingchaos":
+	elif event == "rotatechaos":
 		for child in get_children():
-			if child is RigidBody2D and child.is_rotating_chaos == false:
-				child.is_rotating_chaos = true
+			for child_child in child.get_children():
+				if child_child is RigidBody2D:
+					child_child.is_rotating_chaos = true
 		$EventTimer.start()
-
+	elif event == "randomgravity":
+		$ceiling.is_random_gravity = true
+	elif event == "fastgravity":
+		$ceiling.is_fast_gravity = true
+	elif event == "downwardsforce":
+		for child in get_children():
+			print("to down: " + str(child))
+			for child_child in child.get_children():
+				print("to down: " + str(child_child))
+				if child_child is RigidBody2D:
+					print("downwards force")
+					child_child.apply_force(Vector2(0, 1000))
+	elif event == "randomforce":
+		for child in get_children():
+			print("to random: " + str(child))
+			for child_child in child.get_children():
+				print("to random: " + str(child_child))
+				if child_child is RigidBody2D:
+					print("random force")
+					child_child.apply_force(Vector2(randi_range(-1000, 1000), randi_range(-1000, 1000)))
 
 func _on_twenty_sec_timer_timeout() -> void:
 	chaos()
@@ -139,6 +165,9 @@ func _on_one_sec_timer_timeout() -> void:
 func _on_event_timer_timeout() -> void:
 	is_rotating_chaos = false
 	for child in get_children():
-		if child is RigidBody2D and child.is_rotating_chaos:
-			child.is_rotating_chaos = false
+			print("to rotate: " + str(child))
+			for child_child in child.get_children():
+				if child_child is RigidBody2D:
+					print("rotating chaos")
+					child_child.is_rotating_chaos = false
 	

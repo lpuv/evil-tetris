@@ -120,7 +120,7 @@ size = Vector2(20, 756)
 size = Vector2(428, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
-size = Vector2(1049, 20)
+size = Vector2(1611, 20)
 
 [node name="main" type="Node"]
 script = ExtResource("1_sugp2")
@@ -201,7 +201,7 @@ collision_mask = 7
 script = ExtResource("6_tefeu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="deathplane"]
-position = Vector2(15.5, 452)
+position = Vector2(59.5, 452)
 shape = SubResource("RectangleShape2D_tefeu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
