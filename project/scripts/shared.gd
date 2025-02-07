@@ -10,6 +10,6 @@ var CHAOS_EVENTS = [
 	"nocollision",
 	"upwardforce",
 	"bouncy",
-	#"rickroll",
-	#"table"
+	"rickroll",
+	"table"
 ]

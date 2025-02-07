@@ -83,7 +83,6 @@ func _ready():
 	bouncyMaterial.bounce = 1
 
 func _process(_delta: float) -> void:
-	#print(str(current_piece.name))
 	if current_piece.get_node("RigidBody2D").get_meta("to_delete") == true:
 		current_piece.queue_free()
 	elif current_piece.get_node("RigidBody2D").is_controllable or did_win:

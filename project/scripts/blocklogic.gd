@@ -8,6 +8,13 @@ extends RigidBody2D
 @export var is_controllable: bool
 
 
+func get_random_angle() -> int:
+	# Generate a random integer between 0 and 3
+	var random_index = randi() % 4
+	# Map the index to the corresponding angle
+	return random_index * 90
+
+
 
 func set_state(state: int) -> void:
 	sprite.texture = textures[state]
@@ -17,24 +24,18 @@ func set_state(state: int) -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	# randomize starting state
-	var state = randi_range(0, (len(textures) - 1))
-	set_state(state)
 	self.body_entered.connect(_on_body_enter)
 	
+func _integrate_forces(state):
+	if Input.is_action_just_pressed("up") and is_controllable:
+		rotate(PI*0.5)
+	
+	if Input.is_action_just_pressed("down") and is_controllable:
+		rotate(-PI*0.5)
+
+
 
 func process_inputs():
-	if Input.is_action_just_pressed("up"):
-		if (sprite.get_meta("state") == (len(textures) - 1)):
-			set_state(0)
-		else:
-			set_state(sprite.get_meta("state") + 1)
-	
-	if Input.is_action_just_pressed("down"):
-		if (sprite.get_meta("state") == 0):
-			set_state(len(textures) - 1)
-		else:
-			set_state(sprite.get_meta("state") - 1)
 			
 		
 	if Input.is_action_just_pressed("small_left"):
@@ -62,7 +63,6 @@ func _on_body_enter(node):
 	if node.name == "ceiling":
 		visible = true
 	elif node.name != "walls" and node.name != "deathplane" and is_controllable:
-		#transform.origin = Shared.position_snapped(transform.origin)
 		is_controllable = false
 		set_collision_layer_value(2, true)
 		set_collision_layer_value(1, false)
