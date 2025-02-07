@@ -13,6 +13,7 @@ var did_win = false
 
 var is_not_colliding = false
 var bouncyMaterial = PhysicsMaterial.new()
+var is_rotating_chaos = false
 
 
 func get_visible_children_count() -> int:
@@ -110,10 +111,15 @@ func chaos():
 	if event == "nocollision":
 		is_not_colliding = true
 	elif event == "upwardforce":
-		current_piece.get_node("RigidBody2D").apply_force(Vector2(0, -1000))
+		current_piece.get_node("RigidBody2D").apply_force(Vector2(0, -10000))
 		current_piece.get_node("RigidBody2D").is_controllable = false
 	elif event == "bouncy":
 		current_piece.get_node("RigidBody2D").physics_material_override = bouncyMaterial
+	elif event == "rotatingchaos":
+		for child in get_children():
+			if child is RigidBody2D and child.is_rotating_chaos == false:
+				child.is_rotating_chaos = true
+		$EventTimer.start()
 
 
 func _on_twenty_sec_timer_timeout() -> void:
@@ -128,3 +134,11 @@ func _on_one_sec_timer_timeout() -> void:
 	$event_label.set_meta("time_left", $event_label.get_meta("time_left") - 1)
 	if $event_label.get_meta("time_left") > 0:
 		$OneSecTimer.start()
+
+
+func _on_event_timer_timeout() -> void:
+	is_rotating_chaos = false
+	for child in get_children():
+		if child is RigidBody2D and child.is_rotating_chaos:
+			child.is_rotating_chaos = false
+	

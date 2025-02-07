@@ -7,6 +7,8 @@ extends RigidBody2D
 @export var shapes: Array[PackedVector2Array] = []
 @export var is_controllable: bool
 
+var is_rotating_chaos = false
+
 
 func get_random_angle() -> int:
 	# Generate a random integer between 0 and 3
@@ -26,11 +28,14 @@ func set_state(state: int) -> void:
 func _ready() -> void:
 	self.body_entered.connect(_on_body_enter)
 	
+	
+# handle rotation logic
 func _integrate_forces(state):
-	if Input.is_action_just_pressed("up") and is_controllable:
+	if Input.is_action_just_pressed("up") and (is_controllable or is_rotating_chaos):
+		print("rotating")
 		rotate(PI*0.5)
 	
-	if Input.is_action_just_pressed("down") and is_controllable:
+	if Input.is_action_just_pressed("down") and (is_controllable or is_rotating_chaos):
 		rotate(-PI*0.5)
 
 

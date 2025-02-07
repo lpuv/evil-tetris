@@ -11,5 +11,6 @@ var CHAOS_EVENTS = [
 	"upwardforce",
 	"bouncy",
 	"rickroll",
-	"table"
+	"table",
+	"rotatechaos"
 ]

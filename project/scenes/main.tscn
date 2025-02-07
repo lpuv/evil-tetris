@@ -250,7 +250,11 @@ theme_override_fonts/font = ExtResource("8_wxjoi")
 theme_override_font_sizes/font_size = 50
 text = "YOU WIN!!"
 
+[node name="EventTimer" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="body_exited" from="ceiling" to="ceiling" method="_on_body_exited"]
 [connection signal="body_entered" from="deathplane" to="deathplane" method="_on_body_entered"]
 [connection signal="timeout" from="TwentySecTimer" to="." method="_on_twenty_sec_timer_timeout"]
 [connection signal="timeout" from="OneSecTimer" to="." method="_on_one_sec_timer_timeout"]
+[connection signal="timeout" from="EventTimer" to="." method="_on_event_timer_timeout"]
