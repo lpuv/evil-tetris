@@ -113,6 +113,7 @@ func chaos():
 	var event = chaos_events[rng.randi() % chaos_events.size()]
 	print("starting event " + event)
 	
+	$current_event.text = "Current Event: " + event
 	
 	if event == "nocollision":
 		is_not_colliding = true

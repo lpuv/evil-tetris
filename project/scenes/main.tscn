@@ -253,6 +253,21 @@ text = "YOU WIN!!"
 [node name="EventTimer" type="Timer" parent="."]
 wait_time = 10.0
 
+[node name="current_event" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -112.0
+offset_top = -48.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "Current Event: none"
+
 [connection signal="body_exited" from="ceiling" to="ceiling" method="_on_body_exited"]
 [connection signal="body_entered" from="deathplane" to="deathplane" method="_on_body_entered"]
 [connection signal="timeout" from="TwentySecTimer" to="." method="_on_twenty_sec_timer_timeout"]
