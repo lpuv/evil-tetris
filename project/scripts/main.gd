@@ -13,6 +13,7 @@ var did_win = false
 
 var is_not_colliding = false
 var bouncyMaterial = PhysicsMaterial.new()
+var frictionMaterial = PhysicsMaterial.new()
 var is_rotating_chaos = false
 var is_random_gravity = false
 var is_fast_gravity = false
@@ -84,6 +85,7 @@ func _ready():
 	$OneSecTimer.start()
 	
 	bouncyMaterial.bounce = 1
+	frictionMaterial.friction = 1
 
 func _process(_delta: float) -> void:
 	if current_piece.get_node("RigidBody2D").get_meta("to_delete") == true:
@@ -120,6 +122,12 @@ func chaos():
 	elif event == "upwardforce":
 		current_piece.get_node("RigidBody2D").apply_force(Vector2(0, -5000))
 		current_piece.get_node("RigidBody2D").is_controllable = false
+		current_piece.get_node("RigidBody2D").set_collision_layer_value(1, false)
+		current_piece.get_node("RigidBody2D").set_collision_mask_value(1, false)
+		current_piece.get_node("RigidBody2D").set_collision_layer_value(2, false)
+		current_piece.get_node("RigidBody2D").set_collision_mask_value(2, false)
+		current_piece.get_node("RigidBody2D").set_collision_layer_value(4, true)
+		current_piece.get_node("RigidBody2D").set_collision_mask_value(4, true)
 	elif event == "bouncy":
 		current_piece.get_node("RigidBody2D").physics_material_override = bouncyMaterial
 	elif event == "rotatechaos":
@@ -134,25 +142,42 @@ func chaos():
 		$ceiling.is_fast_gravity = true
 	elif event == "downwardsforce":
 		for child in get_children():
-			print("to down: " + str(child))
 			for child_child in child.get_children():
-				print("to down: " + str(child_child))
 				if child_child is RigidBody2D:
-					print("downwards force")
+					print("downwards force on " + child_child.name)
 					child_child.apply_force(Vector2(0, 1000))
 	elif event == "randomforce":
 		for child in get_children():
-			print("to random: " + str(child))
 			for child_child in child.get_children():
-				print("to random: " + str(child_child))
 				if child_child is RigidBody2D:
-					print("random force")
-					child_child.apply_force(Vector2(randi_range(-1000, 1000), randi_range(-1000, 1000)))
+					print("random force on " + child_child.name)
+					child_child.apply_force(Vector2(randi_range(-10000, 10000), randi_range(-10000, 10000)))
+	elif event == "friction":
+		for child in get_children():
+			for child_child in child.get_children():
+				if child_child is RigidBody2D:
+					print("friction on " + child_child.name)
+					child_child.physics_material_override = frictionMaterial
+	elif event == "randomcenterofmass":
+		current_piece.get_node("RigidBody2D").center_of_mass_mode = RigidBody2D.CenterOfMassMode.CENTER_OF_MASS_MODE_CUSTOM
+		current_piece.get_node("RigidBody2D").center_of_mass = Vector2(randi_range(-20, 20), randi_range(0, 20))
+	elif event == "floaty":
+		current_piece.get_node("RigidBody2D").gravity_scale = 0
+		current_piece.get_node("RigidBody2D").apply_force(Vector2(0, -10))
+		current_piece.get_node("RigidBody2D").is_controllable = false
+		current_piece.get_node("RigidBody2D").set_collision_layer_value(1, false)
+		current_piece.get_node("RigidBody2D").set_collision_mask_value(1, false)
+		current_piece.get_node("RigidBody2D").set_collision_layer_value(2, false)
+		current_piece.get_node("RigidBody2D").set_collision_mask_value(2, false)
+		current_piece.get_node("RigidBody2D").set_collision_layer_value(4, true)
+		current_piece.get_node("RigidBody2D").set_collision_mask_value(4, true)
+		
+
 
 func _on_twenty_sec_timer_timeout() -> void:
 	chaos()
-	$event_label.text = "Next Event: 20s"
-	$event_label.set_meta("time_left", 20)
+	$event_label.text = "Next Event: 5s"
+	$event_label.set_meta("time_left", 5)
 	$TwentySecTimer.start()
 	
 

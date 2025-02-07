@@ -232,11 +232,11 @@ offset_left = -143.0
 offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
-text = "Next Event: 20s"
-metadata/time_left = 20
+text = "Next Event: 5s"
+metadata/time_left = 5
 
 [node name="TwentySecTimer" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 5.0
 
 [node name="OneSecTimer" type="Timer" parent="."]
 

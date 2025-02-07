@@ -28,5 +28,8 @@ var CHAOS_EVENTS = [
 	"randomgravity",
 	"fastgravity",
 	"downwardsforce",
-	"randomforce"
+	"randomforce",
+	"friction",
+	"randomcenterofmass",
+	"floaty"
 ]

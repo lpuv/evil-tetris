@@ -41,8 +41,7 @@ func _integrate_forces(state):
 
 
 func process_inputs():
-			
-		
+	
 	if Input.is_action_just_pressed("small_left"):
 		move_and_collide(Vector2(-10, 0))		
 	elif Input.is_action_just_pressed("small_right"):
@@ -73,4 +72,6 @@ func _on_body_enter(node):
 		set_collision_layer_value(1, false)
 		set_collision_mask_value(2, true)
 		set_collision_mask_value(1, false)
+		set_collision_layer_value(4, true)
+		set_collision_mask_value(4, true)
 		gravity_scale = 1
