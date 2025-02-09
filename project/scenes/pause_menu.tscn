@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://dhs7kwdbbejk4"]
 
 [ext_resource type="Shader" path="res://assets/pause_menu.gdshader" id="1_dplge"]
-[ext_resource type="Script" uid="uid://dndp1wn71fhqu" path="res://scripts/pause_menu.gd" id="1_q2323"]
+[ext_resource type="Script" path="res://scripts/pause_menu.gd" id="1_q2323"]
 [ext_resource type="FontFile" uid="uid://eh43j86udm7i" path="res://Qilkabold-DO6BR.otf" id="3_kukqi"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q2323"]

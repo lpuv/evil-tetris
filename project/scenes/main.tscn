@@ -268,6 +268,7 @@ size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Current Event: none"
 
+[connection signal="body_entered" from="ceiling" to="ceiling" method="_on_body_entered"]
 [connection signal="body_exited" from="ceiling" to="ceiling" method="_on_body_exited"]
 [connection signal="body_entered" from="deathplane" to="deathplane" method="_on_body_entered"]
 [connection signal="timeout" from="TwentySecTimer" to="." method="_on_twenty_sec_timer_timeout"]
