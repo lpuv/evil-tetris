@@ -17,6 +17,7 @@ var frictionMaterial = PhysicsMaterial.new()
 var is_rotating_chaos = false
 var is_random_gravity = false
 var is_fast_gravity = false
+var is_unique = false
 
 var music_player: AudioStreamPlayer
 var chaos_player: AudioStreamPlayer
@@ -49,20 +50,22 @@ func spawn_piece():
 	body.contact_monitor = true
 	body.max_contacts_reported = 5
 	body.set_meta("to_delete", false)
+	body.set_meta("is_quantum", false)
 	
 	
 	# chaos
 	if is_not_colliding:
 		body.set_collision_layer_value(1, false)
-		body.set_collision_layer_value(2, false)
 		body.set_collision_mask_value(1, false)
+		body.set_collision_layer_value(2, false)
 		body.set_collision_mask_value(2, false)
 		body.set_collision_layer_value(3, true)
 		body.set_collision_mask_value(3, true)
 		is_not_colliding = false
-		
+	
 	
 	current_piece = piece
+	body.add_to_group("pieces")
 	
 
 func _ready():
@@ -178,30 +181,23 @@ func chaos():
 	elif event == "bouncy":
 		current_piece.get_node("RigidBody2D").physics_material_override = bouncyMaterial
 	elif event == "rotatechaos":
-		for child in get_children():
-			for child_child in child.get_children():
-				if child_child is RigidBody2D:
-					child_child.is_rotating_chaos = true
+		is_rotating_chaos = true
+		for child in get_tree().get_nodes_in_group("pieces"):
+			child.is_rotating_chaos = true
 		$EventTimer.start()
 	elif event == "randomgravity":
 		$ceiling.is_random_gravity = true
 	elif event == "fastgravity":
 		$ceiling.is_fast_gravity = true
 	elif event == "downwardsforce":
-		for child in get_children():
-			for child_child in child.get_children():
-				if child_child is RigidBody2D:
-					child_child.apply_force(Vector2(0, 1000))
+		for piece in get_tree().get_nodes_in_group("pieces"):
+			piece.apply_force(Vector2(0, 1000))
 	elif event == "randomforce":
-		for child in get_children():
-			for child_child in child.get_children():
-				if child_child is RigidBody2D:
-					child_child.apply_force(Vector2(randi_range(-10000, 10000), randi_range(-10000, 10000)))
+		for piece in get_tree().get_nodes_in_group("pieces"):
+			piece.apply_force(Vector2(rng.randi_range(-10000, 10000), rng.randi_range(-10000, 10000)))
 	elif event == "friction":
-		for child in get_children():
-			for child_child in child.get_children():
-				if child_child is RigidBody2D:
-					child_child.physics_material_override = frictionMaterial
+		for piece in get_tree().get_nodes_in_group("pieces"):
+			piece.physics_material_override = frictionMaterial
 	elif event == "randomcenterofmass":
 		current_piece.get_node("RigidBody2D").center_of_mass_mode = RigidBody2D.CenterOfMassMode.CENTER_OF_MASS_MODE_CUSTOM
 		current_piece.get_node("RigidBody2D").center_of_mass = Vector2(randi_range(-20, 20), randi_range(0, 20))
@@ -240,7 +236,18 @@ func chaos():
 	elif event == "tiny":
 		current_piece.get_node("RigidBody2D").get_node("Sprite2D").scale = Vector2(0.5, 0.5)
 		current_piece.get_node("RigidBody2D").get_node("CollisionPolygon2D").scale = Vector2(0.5, 0.5)
-		
+	elif event == "magnetic":
+		for block1 in get_tree().get_nodes_in_group("pieces"):
+			for block2 in get_tree().get_nodes_in_group("pieces"):
+				if block1 != block2:
+					var direction = (block2.position - block1.position).normalized()
+					var distance = block1.position.distance_to(block2.position)
+					var force = direction * (10000.0/distance)
+					block1.apply_central_impulse(force)
+	elif event == "unique":
+		for piece in get_tree().get_nodes_in_group("pieces"):
+			piece.is_unique = true
+		$EventTimer.start()
 
 
 func _on_twenty_sec_timer_timeout() -> void:
@@ -258,9 +265,12 @@ func _on_one_sec_timer_timeout() -> void:
 
 
 func _on_event_timer_timeout() -> void:
-	is_rotating_chaos = false
-	for child in get_children():
-			for child_child in child.get_children():
-				if child_child is RigidBody2D:
-					child_child.is_rotating_chaos = false
-	
+	if is_rotating_chaos:
+		is_rotating_chaos = false
+		for child in get_tree().get_nodes_in_group("pieces"):
+			child.is_rotating_chaos = false
+	if is_unique:
+		is_unique = false
+		for child in get_tree().get_nodes_in_group("pieces"):
+			child.is_unique = false
+		

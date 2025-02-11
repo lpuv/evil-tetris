@@ -45,4 +45,6 @@ var CHAOS_EVENTS_WEIGHTED = {
 	"amongus": 10,
 	"huge": 10,
 	"tiny": 10,
+	"magnetic": 10,
+	"unique": 10,
 }

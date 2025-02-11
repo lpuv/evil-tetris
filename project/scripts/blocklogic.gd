@@ -8,6 +8,7 @@ extends RigidBody2D
 @export var is_controllable: bool
 
 var is_rotating_chaos = false
+var is_unique = false
 
 
 func get_random_angle() -> int:
@@ -67,8 +68,8 @@ func _on_body_enter(node):
 	elif node.name != "walls" and node.name != "deathplane" and is_controllable:
 		is_controllable = false
 		set_collision_layer_value(2, true)  # other pieces
-		set_collision_layer_value(1, false) # walls
 		set_collision_mask_value(2, true)
+		set_collision_layer_value(1, false) # walls
 		set_collision_mask_value(1, false)
 		set_collision_layer_value(4, true) # floaty & flying pieces
 		set_collision_mask_value(4, true)
@@ -76,3 +77,8 @@ func _on_body_enter(node):
 		set_collision_mask_value(5, true)
 		set_meta("is_landed", true) # win check
 		gravity_scale = 1
+		
+	print(node.get_parent().name + " " + get_parent().name)
+	
+	if node.get_parent().name == get_parent().name and is_unique:
+		print("omg")
