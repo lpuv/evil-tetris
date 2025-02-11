@@ -40,7 +40,6 @@ func _integrate_forces(state):
 
 
 func process_inputs():
-	
 	if Input.is_action_just_pressed("small_left"):
 		move_and_collide(Vector2(-10, 0))		
 	elif Input.is_action_just_pressed("small_right"):

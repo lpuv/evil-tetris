@@ -234,6 +234,12 @@ func chaos():
 	elif event == "amongus":
 		$amongus.visible = not $amongus.visible
 		if $amongus.visible: $amongus.play()
+	elif event == "huge":
+		current_piece.get_node("RigidBody2D").get_node("Sprite2D").scale = Vector2(2, 2)
+		current_piece.get_node("RigidBody2D").get_node("CollisionPolygon2D").scale = Vector2(2, 2)
+	elif event == "tiny":
+		current_piece.get_node("RigidBody2D").get_node("Sprite2D").scale = Vector2(0.5, 0.5)
+		current_piece.get_node("RigidBody2D").get_node("CollisionPolygon2D").scale = Vector2(0.5, 0.5)
 		
 
 

@@ -42,5 +42,7 @@ var CHAOS_EVENTS_WEIGHTED = {
 	"friction": 10,
 	"randomcenterofmass": 10,
 	"floaty": 10,
-	"amongus": 10
+	"amongus": 10,
+	"huge": 10,
+	"tiny": 10,
 }

@@ -88,7 +88,7 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_yxax6")
-text = "BETA v0.8.3
+text = "BETA v0.8.4
 now with real collision!"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]
