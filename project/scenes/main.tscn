@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://q6cxglh3ahep"]
+[gd_scene load_steps=19 format=3 uid="uid://q6cxglh3ahep"]
 
 [ext_resource type="Texture2D" uid="uid://l5v3kbwcpe1l" path="res://assets/Border.png" id="1_8xilh"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_sugp2"]
@@ -8,6 +8,8 @@
 [ext_resource type="Script" path="res://scripts/deathplane.gd" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://dhs7kwdbbejk4" path="res://scenes/pause_menu.tscn" id="7_o6xl0"]
 [ext_resource type="FontFile" uid="uid://eh43j86udm7i" path="res://Qilkabold-DO6BR.otf" id="8_wxjoi"]
+[ext_resource type="Texture2D" uid="uid://vnnxb1tnrr5s" path="res://assets/amongusl.png" id="9_ja0a7"]
+[ext_resource type="Texture2D" uid="uid://cxqgttw76ky53" path="res://assets/amongusr.png" id="10_vrr0h"]
 
 [sub_resource type="Animation" id="Animation_37q4v"]
 length = 0.001
@@ -121,6 +123,20 @@ size = Vector2(428, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
 size = Vector2(1611, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3o4sc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_ja0a7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_vrr0h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="main" type="Node"]
 script = ExtResource("1_sugp2")
@@ -267,6 +283,13 @@ grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
 text = "Current Event: none"
+
+[node name="amongus" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(184, -411)
+scale = Vector2(0.109091, 0.107884)
+sprite_frames = SubResource("SpriteFrames_3o4sc")
+frame_progress = 0.662041
 
 [connection signal="body_entered" from="ceiling" to="ceiling" method="_on_body_entered"]
 [connection signal="body_exited" from="ceiling" to="ceiling" method="_on_body_exited"]

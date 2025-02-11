@@ -19,6 +19,7 @@ var is_random_gravity = false
 var is_fast_gravity = false
 
 var music_player: AudioStreamPlayer
+var chaos_player: AudioStreamPlayer
 var is_rickroll = false
 
 
@@ -94,7 +95,13 @@ func _ready():
 	# Create AudioStreamPlayer if it doesn't exist
 	music_player = AudioStreamPlayer.new()
 	add_child(music_player)
+	
+	# create music chaos player
+	chaos_player = AudioStreamPlayer.new()
+	add_child(chaos_player)
+	
 	music_player.connect("finished", Callable(self, "_on_audio_finished"))
+	chaos_player.connect("finished", Callable(self, "_on_chaos_audio_finished"))
 	
 	if Shared.do_music:
 		# Play a random song
@@ -104,6 +111,9 @@ func _ready():
 func _on_audio_finished():
 	is_rickroll = false
 	play_random_song()
+	
+func _on_chaos_audio_finished():
+	music_player.play()
 
 func play_random_song():
 	# Choose a random file from the array
@@ -144,6 +154,7 @@ func chaos():
 	
 	var event = ""
 	
+	# handle event weighting
 	for event_iterated in Shared.CHAOS_EVENTS_WEIGHTED:
 		current_weight += Shared.CHAOS_EVENTS_WEIGHTED[event_iterated]
 		if random_num < current_weight:
@@ -151,6 +162,8 @@ func chaos():
 			$current_event.text = "Current Event: " + event_iterated
 			event = event_iterated
 			break
+	
+	
 	if event == "nocollision":
 		is_not_colliding = true
 	elif event == "upwardforce":
@@ -208,16 +221,19 @@ func chaos():
 			# Load the audio file
 			var audio_stream = load("res://music/rickroll.mp3")
 			if audio_stream:
-				music_player.stream = audio_stream
-				music_player.play()
+				chaos_player.stream = audio_stream
+				chaos_player.play()
 			is_rickroll = true
 	elif event == "table":
 		music_player.stop()
 		# Load the audio file
 		var audio_stream = load("res://music/table.mp3")
 		if audio_stream:
-			music_player.stream = audio_stream
-			music_player.play()
+			chaos_player.stream = audio_stream
+			chaos_player.play()
+	elif event == "amongus":
+		$amongus.visible = not $amongus.visible
+		if $amongus.visible: $amongus.play()
 		
 
 
