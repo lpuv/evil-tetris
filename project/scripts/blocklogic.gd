@@ -32,7 +32,6 @@ func _ready() -> void:
 # handle rotation logic
 func _integrate_forces(state):
 	if Input.is_action_just_pressed("up") and (is_controllable or is_rotating_chaos):
-		print("rotating")
 		rotate(PI*0.5)
 	
 	if Input.is_action_just_pressed("down") and (is_controllable or is_rotating_chaos):

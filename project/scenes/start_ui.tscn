@@ -57,6 +57,12 @@ theme_override_fonts/font = ExtResource("2_yxax6")
 theme_override_font_sizes/font_size = 30
 text = "quit"
 
+[node name="do_music" type="CheckButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_yxax6")
+button_pressed = true
+text = "Music"
+
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = -1
@@ -82,7 +88,7 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_yxax6")
-text = "BETA v0.7.5
+text = "BETA v0.8.0
 now with real collision!"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Start" to="." method="_on_start_pressed"]

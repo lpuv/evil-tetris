@@ -18,6 +18,9 @@ var is_rotating_chaos = false
 var is_random_gravity = false
 var is_fast_gravity = false
 
+var music_player: AudioStreamPlayer
+
+
 
 func get_visible_children_count() -> int:
 	var visible_count = 0
@@ -48,7 +51,6 @@ func spawn_piece():
 	
 	# chaos
 	if is_not_colliding:
-		print("disabling collision")
 		body.set_collision_layer_value(1, false)
 		body.set_collision_layer_value(2, false)
 		body.set_collision_mask_value(1, false)
@@ -86,6 +88,30 @@ func _ready():
 	
 	bouncyMaterial.bounce = 1
 	frictionMaterial.friction = 1
+	
+	
+	# Create AudioStreamPlayer if it doesn't exist
+	music_player = AudioStreamPlayer.new()
+	add_child(music_player)
+	
+	if Shared.do_music:
+		# Play a random song
+		play_random_song()
+		
+		music_player.connect("finished", Callable(self, "_on_audio_finished"))
+
+func _on_audio_finished():
+	play_random_song()
+
+func play_random_song():
+	# Choose a random file from the array
+	var random_file = Shared.audio_files[rng.randi() % Shared.audio_files.size()]
+	
+	# Load the audio file
+	var audio_stream = load("res://music/" + random_file)
+	if audio_stream:
+		music_player.stream = audio_stream
+		music_player.play()
 
 func _process(_delta: float) -> void:
 	if current_piece.get_node("RigidBody2D").get_meta("to_delete") == true:
@@ -95,7 +121,6 @@ func _process(_delta: float) -> void:
 	print("time to spawn")
 	spawn_piece()
 	
-	print(get_visible_children_count())
 	
 	
 
@@ -142,19 +167,16 @@ func chaos():
 		for child in get_children():
 			for child_child in child.get_children():
 				if child_child is RigidBody2D:
-					print("downwards force on " + child_child.name)
 					child_child.apply_force(Vector2(0, 1000))
 	elif event == "randomforce":
 		for child in get_children():
 			for child_child in child.get_children():
 				if child_child is RigidBody2D:
-					print("random force on " + child_child.name)
 					child_child.apply_force(Vector2(randi_range(-10000, 10000), randi_range(-10000, 10000)))
 	elif event == "friction":
 		for child in get_children():
 			for child_child in child.get_children():
 				if child_child is RigidBody2D:
-					print("friction on " + child_child.name)
 					child_child.physics_material_override = frictionMaterial
 	elif event == "randomcenterofmass":
 		current_piece.get_node("RigidBody2D").center_of_mass_mode = RigidBody2D.CenterOfMassMode.CENTER_OF_MASS_MODE_CUSTOM
@@ -189,9 +211,7 @@ func _on_one_sec_timer_timeout() -> void:
 func _on_event_timer_timeout() -> void:
 	is_rotating_chaos = false
 	for child in get_children():
-			print("to rotate: " + str(child))
 			for child_child in child.get_children():
 				if child_child is RigidBody2D:
-					print("rotating chaos")
 					child_child.is_rotating_chaos = false
 	
