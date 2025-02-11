@@ -19,6 +19,7 @@ var is_random_gravity = false
 var is_fast_gravity = false
 
 var music_player: AudioStreamPlayer
+var is_rickroll = false
 
 
 
@@ -93,14 +94,15 @@ func _ready():
 	# Create AudioStreamPlayer if it doesn't exist
 	music_player = AudioStreamPlayer.new()
 	add_child(music_player)
+	music_player.connect("finished", Callable(self, "_on_audio_finished"))
 	
 	if Shared.do_music:
 		# Play a random song
 		play_random_song()
 		
-		music_player.connect("finished", Callable(self, "_on_audio_finished"))
 
 func _on_audio_finished():
+	is_rickroll = false
 	play_random_song()
 
 func play_random_song():
@@ -191,6 +193,22 @@ func chaos():
 		current_piece.get_node("RigidBody2D").set_collision_mask_value(2, false)
 		current_piece.get_node("RigidBody2D").set_collision_layer_value(4, true)
 		current_piece.get_node("RigidBody2D").set_collision_mask_value(4, true)
+	elif event == "rickroll":
+		if not is_rickroll:
+			music_player.stop()
+			# Load the audio file
+			var audio_stream = load("res://music/rickroll.mp3")
+			if audio_stream:
+				music_player.stream = audio_stream
+				music_player.play()
+			is_rickroll = true
+	elif event == "table":
+		music_player.stop()
+		# Load the audio file
+		var audio_stream = load("res://music/table.mp3")
+		if audio_stream:
+			music_player.stream = audio_stream
+			music_player.play()
 		
 
 
