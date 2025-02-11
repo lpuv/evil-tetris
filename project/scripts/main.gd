@@ -135,13 +135,22 @@ func win():
 		piece.queue_free()
 
 func chaos():
-	var chaos_events = Shared.CHAOS_EVENTS
-	chaos_events.shuffle()
-	var event = chaos_events[rng.randi() % chaos_events.size()]
-	print("starting event " + event)
+	var total_weight = 0
+	for weight in Shared.CHAOS_EVENTS_WEIGHTED.values():
+		total_weight += weight
 	
-	$current_event.text = "Current Event: " + event
+	var random_num = rng.randi() % total_weight
+	var current_weight = 0
 	
+	var event = ""
+	
+	for event_iterated in Shared.CHAOS_EVENTS_WEIGHTED:
+		current_weight += Shared.CHAOS_EVENTS_WEIGHTED[event_iterated]
+		if random_num < current_weight:
+			print("starting event " + event_iterated)
+			$current_event.text = "Current Event: " + event_iterated
+			event = event_iterated
+			break
 	if event == "nocollision":
 		is_not_colliding = true
 	elif event == "upwardforce":

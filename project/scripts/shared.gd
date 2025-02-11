@@ -28,18 +28,18 @@ var audio_files = [
 	"trap2.mp3", "windowsxp.mp3"
 ]
 
-var CHAOS_EVENTS = [
-	"nocollision",
-	"upwardforce",
-	"bouncy",
-	"rickroll",
-	"table",
-	"rotatechaos",
-	"randomgravity",
-	"fastgravity",
-	"downwardsforce",
-	"randomforce",
-	"friction",
-	"randomcenterofmass",
-	"floaty"
-]
+var CHAOS_EVENTS_WEIGHTED = {
+	"nocollision": 10,
+	"upwardforce": 10,
+	"bouncy": 10,
+	"rickroll": 1,    # lowest chance
+	"table": 3,       # second lowest chance
+	"rotatechaos": 10,
+	"randomgravity": 10,
+	"fastgravity": 10,
+	"downwardsforce": 10,
+	"randomforce": 10,
+	"friction": 10,
+	"randomcenterofmass": 10,
+	"floaty": 10
+}
