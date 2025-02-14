@@ -139,7 +139,7 @@ func adjust_chaos_by_height():
 	var height_percentage = clamp(1.0 - (distance_to_target / 380.0), 0.0, 1.0)
 
 	# Interpolate between max and min time based on height_percentage
-	var max_time = 10.0
+	var max_time = 5.0 if Shared.sprint_mode else 10.0
 	var min_time = 0.5
 	var time_left = lerp(max_time, min_time, height_percentage)
 

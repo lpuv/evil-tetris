@@ -25,6 +25,7 @@ func get_stack_height(pieces: Array[Node]):
 	return highest_y
 
 var do_music = true
+var sprint_mode = false
 
 var audio_files = [
 	"8bit.mp3", "abberall.mp3", "brass.mp3", "chiptune.mp3", 
