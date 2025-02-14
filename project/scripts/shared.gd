@@ -27,6 +27,7 @@ func get_stack_height(pieces: Array[Node]):
 var do_music = true
 var sprint_mode = false
 
+
 var audio_files = [
 	"8bit.mp3", "abberall.mp3", "brass.mp3", "chiptune.mp3", 
 	"creepy.mp3", "dubstep.mp3", "entraceremix.mp3", "entryremix2.mp3",
@@ -54,5 +55,5 @@ var CHAOS_EVENTS_WEIGHTED = {
 	"huge": 10,
 	"tiny": 10,
 	"magnetic": 10,
-	"unique": 10,
+	"frictionless": 10,
 }

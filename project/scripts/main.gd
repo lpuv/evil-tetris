@@ -12,6 +12,7 @@ var did_win = false
 var is_not_colliding = false
 var bouncyMaterial = PhysicsMaterial.new()
 var frictionMaterial = PhysicsMaterial.new()
+var frictionlessMaterial = PhysicsMaterial.new()
 var is_rotating_chaos = false
 var is_random_gravity = false
 var is_fast_gravity = false
@@ -267,10 +268,9 @@ func chaos():
 					var distance = block1.position.distance_to(block2.position)
 					var force = direction * (10000.0/distance)
 					block1.apply_central_impulse(force)
-	elif event == "unique":
+	elif event == "frictionless":
 		for piece in get_tree().get_nodes_in_group("pieces"):
-			piece.is_unique = true
-		$EventTimer.start()
+			piece.physics_material_override = frictionlessMaterial
 
 
 func _on_twenty_sec_timer_timeout() -> void:
