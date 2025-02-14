@@ -141,7 +141,7 @@ func adjust_chaos_by_height():
 	# Interpolate between max and min time based on height_percentage
 	var max_time = 5.0 if Shared.sprint_mode else 10.0
 	var min_time = 0.5
-	var time_left = lerp(max_time, min_time, height_percentage)
+	var time_left = floor(lerp(max_time, min_time, height_percentage))
 
 
 	print("Current height: ", current_height)
