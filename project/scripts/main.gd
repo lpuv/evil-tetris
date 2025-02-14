@@ -1,7 +1,5 @@
 extends Node
 
-const NUM_PIECES = 3
-
 var pieces
 
 var rng
@@ -23,6 +21,8 @@ var music_player: AudioStreamPlayer
 var chaos_player: AudioStreamPlayer
 var is_rickroll = false
 
+var current_chaos_timer_time = 10
+
 
 
 func get_visible_children_count() -> int:
@@ -39,7 +39,6 @@ func prepare_restart():
 	current_piece.queue_free()
 
 func spawn_piece():
-	
 	var piece = pieces[rng.randi() % pieces.size()].instantiate()
 	add_child(piece)
 	var body = piece.get_node("RigidBody2D")
@@ -128,6 +127,30 @@ func play_random_song():
 		music_player.stream = audio_stream
 		music_player.play()
 
+func adjust_chaos_by_height():
+	# Get current stack height
+	var current_height = Shared.get_stack_height(get_tree().get_nodes_in_group("pieces"))
+
+	# Calculate how close we are to -380 (0 means we're at -380, larger numbers mean we're further away)
+	var distance_to_target = abs(current_height - (-380))
+
+	# Convert this to a percentage (0.0 to 1.0)
+	# Assuming the stack starts at around -760 (or adjust this value based on your game)
+	var height_percentage = clamp(1.0 - (distance_to_target / 380.0), 0.0, 1.0)
+
+	# Interpolate between max and min time based on height_percentage
+	var max_time = 10.0
+	var min_time = 0.5
+	var time_left = lerp(max_time, min_time, height_percentage)
+
+
+	print("Current height: ", current_height)
+	print("Distance to target: ", distance_to_target)
+	print("Height percentage: ", height_percentage)
+	print("Time left: ", time_left)
+	current_chaos_timer_time = time_left
+
+
 func _process(_delta: float) -> void:
 	if current_piece.get_node("RigidBody2D").get_meta("to_delete") == true:
 		current_piece.queue_free()
@@ -136,7 +159,7 @@ func _process(_delta: float) -> void:
 	print("time to spawn")
 	spawn_piece()
 	
-	
+	adjust_chaos_by_height()
 	
 
 func win():
@@ -252,8 +275,9 @@ func chaos():
 
 func _on_twenty_sec_timer_timeout() -> void:
 	chaos()
-	$event_label.text = "Next Event: 5s"
-	$event_label.set_meta("time_left", 5)
+	$event_label.text = "Next Event: " + str(current_chaos_timer_time) + "s"
+	$event_label.set_meta("time_left", current_chaos_timer_time)
+	$TwentySecTimer.wait_time = current_chaos_timer_time
 	$TwentySecTimer.start()
 	
 

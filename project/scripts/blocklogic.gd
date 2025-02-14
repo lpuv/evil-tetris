@@ -78,7 +78,7 @@ func _on_body_enter(node):
 		set_meta("is_landed", true) # win check
 		gravity_scale = 1
 		
-	print(node.get_parent().name + " " + get_parent().name)
+	#print(node.get_parent().name + " " + get_parent().name)
 	
 	if node.get_parent().name == get_parent().name and is_unique:
 		print("omg")

@@ -17,6 +17,13 @@ func get_children_in_radius(radius: float, center: Object) -> Array:
 
 	return selected_children
 
+func get_stack_height(pieces: Array[Node]):
+	var highest_y = 372
+	for piece in pieces:
+		if piece.position.y < highest_y and piece.position.y > -361:
+			highest_y = piece.position.y
+	return highest_y
+
 var do_music = true
 
 var audio_files = [
