@@ -24,7 +24,7 @@ func get_stack_height(pieces: Array[Node]):
 			highest_y = piece.position.y
 	return highest_y
 
-var do_music = true
+var do_music = false
 var sprint_mode = false
 
 

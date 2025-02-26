@@ -60,7 +60,6 @@ text = "quit"
 [node name="do_music" type="CheckButton" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_yxax6")
-button_pressed = true
 text = "Music"
 
 [node name="sprint_mode" type="CheckButton" parent="MarginContainer/VBoxContainer"]
