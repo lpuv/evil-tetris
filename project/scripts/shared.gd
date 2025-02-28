@@ -2,6 +2,9 @@ extends Node
 
 var CELL_SIZE = 50 # or whatever
 
+const PIECES_TO_LOSE = 50
+const PIECES_TO_LOSE_SPRINT = 20
+
 func position_snapped(pos: Vector2):
 	return (pos / CELL_SIZE).floor() * CELL_SIZE
 
@@ -56,4 +59,5 @@ var CHAOS_EVENTS_WEIGHTED = {
 	"tiny": 10,
 	"magnetic": 10,
 	"frictionless": 10,
+	"goodbyepiece": 100,
 }

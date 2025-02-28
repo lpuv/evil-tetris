@@ -8,6 +8,7 @@ var current_piece = null
 
 var did_win = false
 
+var num_fell = 0
 
 var is_not_colliding = false
 var bouncyMaterial = PhysicsMaterial.new()
@@ -22,7 +23,10 @@ var music_player: AudioStreamPlayer
 var chaos_player: AudioStreamPlayer
 var is_rickroll = false
 
+var pieces_to_lose = Shared.PIECES_TO_LOSE_SPRINT if Shared.sprint_mode else Shared.PIECES_TO_LOSE
+
 var current_chaos_timer_time = 10
+
 
 
 
@@ -86,6 +90,8 @@ func _ready():
 	pieces = [I, J, L, O, S, T, Z]
 	pieces.shuffle()
 	spawn_piece()
+	
+	$instructions.text = "reach the top!!\ndon't lose\n" + str(pieces_to_lose) + " pieces!"
 	
 	$AnimationPlayer.play("controls_fade")
 	$TwentySecTimer.start()
@@ -153,15 +159,30 @@ func adjust_chaos_by_height():
 
 
 func _process(_delta: float) -> void:
-	if current_piece.get_node("RigidBody2D").get_meta("to_delete") == true:
-		current_piece.queue_free()
-	elif current_piece.get_node("RigidBody2D").is_controllable or did_win:
-		return
+	if current_piece != null:
+		if current_piece.get_node("RigidBody2D").is_controllable or did_win:
+			return
 	print("time to spawn")
 	spawn_piece()
 	
 	adjust_chaos_by_height()
 	
+	handle_deletion()
+
+
+
+func handle_deletion():
+	for piece in get_tree().get_nodes_in_group("pieces"):
+		if piece.get_meta("to_delete") == true:
+			print(piece.is_controllable)
+			if num_fell >= pieces_to_lose:
+				$gameover.visible = true
+				$gameoverrestart.visible = true
+				get_tree().paused = true
+			num_fell += 1
+			$pieceslost.text = "pieces lost: " + str(num_fell)
+			piece.is_controllable = false
+			piece.queue_free()
 
 func win():
 	$win.visible = true
@@ -271,6 +292,9 @@ func chaos():
 	elif event == "frictionless":
 		for piece in get_tree().get_nodes_in_group("pieces"):
 			piece.physics_material_override = frictionlessMaterial
+	elif event == "goodbyepiece":
+		var piece_to_poof = get_tree().get_nodes_in_group("pieces")[rng.randi_range(0, len(get_tree().get_nodes_in_group("pieces")) - 1)]
+		piece_to_poof.get_parent().queue_free()
 
 
 func _on_twenty_sec_timer_timeout() -> void:
@@ -298,3 +322,14 @@ func _on_event_timer_timeout() -> void:
 		for child in get_tree().get_nodes_in_group("pieces"):
 			child.is_unique = false
 		
+
+
+func _on_yieldcontrol_body_entered(body: Node2D) -> void:
+	print("yielding control of piece")
+	body.is_controllable = false
+
+
+func _on_gameoverrestart_pressed() -> void:
+	get_tree().current_scene.prepare_restart()
+	get_tree().paused = false
+	get_tree().reload_current_scene()
