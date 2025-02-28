@@ -43,6 +43,7 @@ theme_override_font_sizes/font_size = 30
 text = "start!"
 
 [node name="Settings" type="Button" parent="MarginContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_fonts/font = ExtResource("2_yxax6")
