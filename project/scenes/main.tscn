@@ -298,10 +298,14 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -143.0
-offset_top = -23.0
+offset_left = -228.0
+offset_top = -36.0
 grow_horizontal = 0
 grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("8_wxjoi")
+theme_override_font_sizes/font_size = 30
 text = "Next Event: 10s"
 metadata/time_left = 10
 
@@ -329,13 +333,16 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -112.0
-offset_top = -48.0
-offset_bottom = -25.0
+offset_left = -299.0
+offset_top = -75.0
+offset_right = -3.0
+offset_bottom = -33.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_fonts/font = ExtResource("8_wxjoi")
+theme_override_font_sizes/font_size = 30
 text = "Current Event: none"
 
 [node name="amongus" type="AnimatedSprite2D" parent="."]
