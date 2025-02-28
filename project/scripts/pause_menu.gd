@@ -6,7 +6,8 @@ func _ready() -> void:
 	
 
 func resume():
-	get_tree().paused = false
+	if not Shared.is_dead:
+		get_tree().paused = false
 	$AnimationPlayer.play_backwards("blur")
 	hide()
 	
@@ -17,7 +18,7 @@ func pause():
 
 func testEsc():
 	if Input.is_action_just_pressed("escape"):
-		if get_tree().paused:
+		if get_tree().paused and not Shared.is_dead:
 			resume()
 		else:
 			pause()

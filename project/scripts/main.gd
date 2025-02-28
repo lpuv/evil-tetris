@@ -115,7 +115,8 @@ func _ready():
 	if Shared.do_music:
 		# Play a random song
 		play_random_song()
-		
+	
+	Shared.is_dead = false
 
 func _on_audio_finished():
 	is_rickroll = false
@@ -178,6 +179,8 @@ func handle_deletion():
 			if num_fell >= pieces_to_lose:
 				$gameover.visible = true
 				$gameoverrestart.visible = true
+				$gameoverrestartadd.visible = true
+				Shared.is_dead = true
 				get_tree().paused = true
 			num_fell += 1
 			$pieceslost.text = "pieces lost: " + str(num_fell)
@@ -330,6 +333,16 @@ func _on_yieldcontrol_body_entered(body: Node2D) -> void:
 
 
 func _on_gameoverrestart_pressed() -> void:
+	get_tree().current_scene.prepare_restart()
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _on_gameoverrestartadd_pressed() -> void:
+	if Shared.sprint_mode:
+		Shared.PIECES_TO_LOSE_SPRINT += 10
+	else:
+		Shared.PIECES_TO_LOSE += 10
 	get_tree().current_scene.prepare_restart()
 	get_tree().paused = false
 	get_tree().reload_current_scene()

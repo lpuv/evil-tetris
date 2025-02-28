@@ -395,13 +395,27 @@ shape = SubResource("RectangleShape2D_gmyt5")
 position = Vector2(162, 382)
 shape = SubResource("RectangleShape2D_6auue")
 
+[node name="gameoverrestartadd" type="Button" parent="."]
+process_mode = 3
+visible = false
+z_index = 10
+offset_left = -174.0
+offset_top = 22.0
+offset_right = 173.0
+offset_bottom = 136.0
+theme_override_fonts/font = ExtResource("8_wxjoi")
+theme_override_font_sizes/font_size = 45
+text = "RESTART
+(add 10 pieces)"
+
 [node name="gameoverrestart" type="Button" parent="."]
 process_mode = 3
 visible = false
-offset_left = -116.0
-offset_top = 53.0
-offset_right = 119.0
-offset_bottom = 120.0
+z_index = 10
+offset_left = -117.0
+offset_top = 166.0
+offset_right = 118.0
+offset_bottom = 233.0
 theme_override_fonts/font = ExtResource("8_wxjoi")
 theme_override_font_sizes/font_size = 50
 text = "RESTART"
@@ -413,4 +427,5 @@ text = "RESTART"
 [connection signal="timeout" from="OneSecTimer" to="." method="_on_one_sec_timer_timeout"]
 [connection signal="timeout" from="EventTimer" to="." method="_on_event_timer_timeout"]
 [connection signal="body_entered" from="yieldcontrol" to="." method="_on_yieldcontrol_body_entered"]
+[connection signal="pressed" from="gameoverrestartadd" to="." method="_on_gameoverrestartadd_pressed"]
 [connection signal="pressed" from="gameoverrestart" to="." method="_on_gameoverrestart_pressed"]

@@ -2,8 +2,8 @@ extends Node
 
 var CELL_SIZE = 50 # or whatever
 
-const PIECES_TO_LOSE = 50
-const PIECES_TO_LOSE_SPRINT = 20
+var PIECES_TO_LOSE = 50
+var PIECES_TO_LOSE_SPRINT = 20
 
 func position_snapped(pos: Vector2):
 	return (pos / CELL_SIZE).floor() * CELL_SIZE
@@ -30,6 +30,8 @@ func get_stack_height(pieces: Array[Node]):
 var do_music = false
 var sprint_mode = false
 
+
+var is_dead = false
 
 var audio_files = [
 	"8bit.mp3", "abberall.mp3", "brass.mp3", "chiptune.mp3", 
@@ -59,5 +61,5 @@ var CHAOS_EVENTS_WEIGHTED = {
 	"tiny": 10,
 	"magnetic": 10,
 	"frictionless": 10,
-	"goodbyepiece": 100,
+	"goodbyepiece": 10,
 }
